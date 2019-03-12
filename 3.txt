@@ -1,0 +1,31 @@
+int val;
+double Vin;
+double sensorVoltage;
+double sensorValue;
+int R1;
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  val = analogRead(15);
+  Vin = val * 2.5 / 4095;
+  for (int i = 0; i <= 5; i++)
+    sensorValue = 0.7 * sensorValue + 0.3 * analogRead(15);
+  sensorVoltage = sensorValue * 2.5 / 4095;
+  
+  //Vin為7697最大可偵測值
+  //R1+R2為可變電阻 兩端作兩電阻
+  //R1 = sensorVoltage * (R1+R2) / Vin
+  R1 = sensorVoltage * 1008100 / 2.5;
+  Serial.print("R1=");
+  Serial.println(R1);
+  Serial.print("sensorValue=");
+  Serial.println(sensorValue);
+  Serial.print("sensorVoltage=");
+  Serial.println(sensorVoltage);
+  delay(500);
+  
+}
